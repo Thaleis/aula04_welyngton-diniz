@@ -19,4 +19,5 @@ try:
     print(f"{num1} dividido por {num2} é igual a {divisao:.2f}")
 except ZeroDivisionError:
         print("Impossivel dividir por 0!")
-
+finally:
+    print("Operação finalizada.")
