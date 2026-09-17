@@ -1,31 +1,38 @@
-class SaldoInsuficiente(Exception):
+class saldonegativo(Exception):
     pass
 
 
-print("Digite o saldo atual da sua conta.")
+class saldoinsuficiente(Exception):
+    pass
+
+
+print("Digite o valor do seu saldo atual.")
 while True:
     try:
-        saldo_atual = float(input("- "))
-        break
+        saldo = float(input("- "))
+        if saldo < 1:
+            raise saldonegativo("O saldo não pode ser menor que 1.")
+    except saldonegativo as erro:
+        print(erro)
     except ValueError:
-        print("Digite apenas números!")
-
-print("Digite quanto deseja sacar.")
+        print("Digite um número!")
+    else:
+        break
+print("Digite quanto deseja sacar da sua conta.")
 while True:
     try:
         saque = float(input("- "))
-        if saque <= 0:
-            print("Digite um número maior que zero!")
-            continue
-        break
+        if saque > saldo:
+            raise saldoinsuficiente("Saldo insuficiente para essa transação.")
+    except saldoinsuficiente as saldobaixo:
+        print(saldobaixo)
     except ValueError:
-        print("Digite apenas números!")
-
-print("Realizando operação...")
-try:
-    if saque > saldo_atual:
-        raise SaldoInsuficiente("Saldo insuficiente para saque.")
-    saldo_atual -= saque
-    print(f"Saque realizado com sucesso! Saldo atual: R${saldo_atual:.2f}")
-except SaldoInsuficiente as erro:
-    print(f"Erro: {erro}")
+        print("Digite um número!")
+    else:
+        print("Transação realizada com sucesso.")
+        sobra = saldo - saque
+        print(f"Sua conta agora possui R${sobra}.")
+        break
+    finally:
+        print("Operação Bancária Finalizada")
+        break
