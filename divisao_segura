@@ -20,4 +20,4 @@ try:
 except ZeroDivisionError:
         print("Impossivel dividir por 0!")
 finally:
-    print("Operação finalizada.")
+    print("Operação finalizada, obrigado.")
